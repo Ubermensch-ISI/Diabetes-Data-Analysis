@@ -1,0 +1,664 @@
+---
+title: "Diabetes"
+subtitle: "Analyzing using R"
+author: 
+  - Arpan Dutta
+  - Soumyajit Roy
+  - Sourav Biswas
+format: 
+ revealjs:
+  code-fold: true
+  theme: dark
+  transition: slide
+title-slide-attributes: 
+  data-background-image: C:/Users/Prithwiswar/Documents/isilogo.jpg
+  data-background-size: 5 %
+  data-background-position: 2% 2%
+execute: 
+  echo: true
+editor: visual
+---
+
+## Packages
+
+```{r,filename="Packages"}
+     
+require(ggplot2)
+require(glmnet)
+require(plotly)
+library(GGally)
+library(gridExtra)
+library(car)
+require(nlme)
+require(MASS)
+require(pls)
+require(lattice)
+library(leaps)
+library(lmtest)
+```
+
+## Introduction to the Dataset.
+
+The "diabetes.csv" dataset consists of data related to relative weight and results of different tests to diagonise diabetes of 144 persons.
+
+-   **relwt** : Relative weight.
+
+-   **glufast** : Fasting Plasma Glucose (FPG).
+
+-   **glutest** : Test Plasma Glucose.
+
+-   **sspg** : Steady State Plasma Glucose.
+
+-   **instest** : Plasma Insulin during Test.
+
+-   **group** : Clinical group.
+
+## Data
+
+```{r echo=TRUE }
+p=7
+#--Importing the Data--
+dbts=read.csv("E:\\pdf\\swagata_regression\\diabetes.csv") 
+X=dbts[-1]
+dbts$group=as.factor(dbts$group) 
+levels(dbts$group)=c("2","1","0") 
+#--Releveling---
+dbts$group=relevel(dbts$group,ref="0")
+head(dbts,5)
+```
+
+Structure of the dataset.
+
+```{r}
+str(dbts)
+```
+
+## Diagnostics
+
+Let us quickly see some basic features of the data.
+
+```{r filename="Relationship"}
+p=ggpairs(dbts)
+ggplotly(p,width = 1000,height=400)
+
+```
+
+## Diagnostics
+
+Let us look into the boxplot with IQR.
+
+```{r}
+boxplot(dbts[-c(6,1)])
+```
+
+## Boxplot of response w.r.t. 'group'.
+
+```{r}
+ggplot(dbts,mapping=aes(x=group,y=relwt,fill=group))+
+geom_boxplot()+stat_summary(fun="mean",geom="point",
+shape=8,size=2,col="white")+
+labs(title="Boxplot of Relative Weight w.r.t different groups.",
+y="Relative Weight",x="Group")+theme(legend.position="top")
+```
+
+## Proposed Model
+
+$y_{i}=\beta_{0}+\beta_{1}x_{1i}+\beta_{2}x_{2i}+\beta_{3}x_{3i}+\beta_{4}x_{4i}+\beta_{5}z_{5i}+\beta_{6}z_{6i}+\epsilon_{i}\:i=1\left(1\right)n.$
+
+assuming, $\epsilon_{i}$'s are iid $\mathcal{N}\left(0,\sigma^{2}\right),\sigma^{2}$ is unknown.
+
+• $\boldsymbol{y}$ stands for Relative Weight.
+
+•$\boldsymbol{x_{1}}$ is glutest.
+
+• $\boldsymbol{x_{2}}$ is glufast.
+
+• $\boldsymbol{x_{3}}$ is sspg.
+
+• $\boldsymbol{x}_{4}$ is Instest.
+
+• $\boldsymbol{z_{5}}$ is the indicator whether the person is chem. diabetic.
+
+• $\boldsymbol{z_{6}}$ is the indicator whether the person is over diabetic.\
+
+## Modeling.
+
+Fitting the full model.
+
+```{r}
+n=nrow(dbts)
+p=7
+ 
+lmodel1=lm(relwt~.,data=dbts)
+summary(lmodel1)
+
+```
+
+## Collinearity {.scrollable}
+
+-   `VIF` for the covariates of `Diabetes` dataset.
+
+```{r}
+vif(lmodel1)
+```
+
+## Diagonstics {.scrollable}
+
+-   Checking whether mean equal to zero.
+
+```{r}
+ggobj=ggplot(data=dbts,mapping=aes(x=fitted(lmodel1),y=residuals(lmodel1)))
+ggobj=ggobj+geom_point()+geom_hline(yintercept=0,linetype="dashed",col="red")+ylim(0.5,-0.5)+
+xlab("Fitted")+ylab("Residuals")+labs(title="Fitted vs. Residual")
+ggobj
+```
+
+## Checking for Normality {.scrollable}
+
+```{r}
+df=data.frame(y=residuals(lmodel1))
+ggobj3=ggplot(df,aes(sample=y))+stat_qq(shape=5)+stat_qq_line(lwd=1,col="navyblue")+labs(y="Theoretical Quantiles",x="Sample Quantiles",title="QQPlot for the Residuals")
+ggobj3
+```
+
+## Outlier Detection {.scrollable}
+
+1.`DFFITS`
+
+```{r}
+
+ggdffits=ggplot(data.frame(y=dffits(lmodel1)),mapping=aes(y=y,x=1:length(y)))+labs(title="Measuring DFFIT",x="Index",y="DFFITS")
+plot1=ggdffits+geom_point()+geom_hline(yintercept=2*sqrt(p/n),col="grey",lwd=1)
+plot1=ggdffits+geom_point()+geom_hline(yintercept=2*sqrt(p/n),col="grey",lwd=1)+geom_label(aes(label=1:length(y)))
+plot1
+
+```
+
+## 
+
+2.`Leverages`
+
+```{r}
+p=7;n=nrow(dbts)
+gghat=ggplot(data.frame(y=hatvalues(lmodel1)),
+mapping=aes(y=y,x=1:length(y)))+labs(title="Identifying High 
+Leverage Points",x="Index",y="Hat Matrix Diagonals") 
+plot2=gghat+geom_point()+geom_hline(yintercept=2*p/n,col="grey",lwd=1) 
+gghat+geom_point()+geom_hline(yintercept=2*p/n,col="grey",
+lwd=1)+geom_label(aes(label=1:length(y))) 
+```
+
+## 
+
+3.`DFBETAS`
+
+```{r}
+
+lmodel1.dfbetas=data.frame(dfbetas(lmodel1))
+db1=ggplot(data.frame(y=lmodel1.dfbetas[,2]),mapping=aes(y=y,x=1:length(y)))+geom_point()+geom_hline(yintercept=2/sqrt(n))+labs(title="glufast",x="Index",y="dfbetas")+geom_label(aes(label=1:length(y))) 
+db2=ggplot(data.frame(y=lmodel1.dfbetas[,3]),mapping=aes(y=y,x=1:length(y)))+geom_point()+geom_hline(yintercept=2/sqrt(n))+labs(title="glutest",x="Index",y="dfbetas")+geom_label(aes(label=1:length(y))) 
+db3=ggplot(data.frame(y=lmodel1.dfbetas[,4]),mapping=aes(y=y,x=1:length(y)))+geom_point()+geom_hline(yintercept=2/sqrt(n))+labs(title="sspg",x="Index",y="dfbetas")+geom_label(aes(label=1:length(y))) 
+db4=ggplot(data.frame(y=lmodel1.dfbetas[,5]),mapping=aes(y=y,x=1:length(y)))+geom_point()+geom_hline(yintercept=2/sqrt(n))+labs(title="instest",x="Index",y="instest")+geom_label(aes(label=1:length(y))) 
+grid.arrange(db1,db2,db3,db4,ncol=2,nrow=2)
+```
+
+## Outlier at a glance
+
+-   Influence measure
+
+```{r}
+
+outdetect=influence.measures(lmodel1)
+outdetect
+```
+
+## Outlier
+
++---------------+------------------------------------+
+| Measure       | Labels                             |
++===============+====================================+
+| Leverages     | 86,144,131,141,139,133,116 etc.    |
++---------------+------------------------------------+
+| DFFIT         | 137,37                             |
++---------------+------------------------------------+
+| DFBETA        | | Covariate | Labels             | |
+|               | |-----------|--------------------| |
+|               | | glufast   | 117,6,69           | |
+|               | | glutest   | 134,10             | |
+|               | | intest    | 84,134,129         | |
+|               | | sspg      | 37,86,99,89,87,137 | |
++---------------+------------------------------------+
+
+## Outlier
+
+From all the and the table above, we the index of the observations which may affect the regression the most are 37,86,134,137,144. Hence, we fit a different model discarding these.
+
+## Full model discarding outliers
+
+```{r}
+model2=lm(relwt~.,data=dbts[-c(37,86,134,137,144),])
+summary(model2)
+```
+
+## Principal Component Regression {.scrollable}
+
+The Principal Components Regression approach involves constructing the first M principal components,and then using these components as the predictors in a linear regression model that is fit using least squares. We fit a PCR model storing into the object '**model.pc**' .
+
+```{r}
+require(pls)
+model.pc=pcr(relwt~.,data=dbts,validation="CV",scale=T,centre=T)
+summary(model.pc)
+
+```
+
+## PCR {.scrollable}
+
+```{r}
+validationplot(model.pc,main="Plotting RMSE w.r.t no. of components.")
+box(lwd=3,col="grey")
+```
+
+# Model Selection
+
+```{r,echo=F}
+## models
+
+fm<-list()
+fm[['gf+gt+ss+in+gr']]<-lm(relwt~.,data=dbts)
+fm[['gt+ss+in+gr']]<-lm(relwt~.-glufast,data=dbts)
+fm[['gf+ss+in+gr']]<-lm(relwt~.-glutest,data=dbts)
+fm[['ss+in+gr']]<-lm(relwt~sspg+instest+group,data=dbts)
+fm[['gt+in+gr']]<-lm(relwt~glutest+instest+group,data=dbts)
+fm[['gt+ss+in']]<-lm(relwt~glutest+sspg+instest,data=dbts)
+fm[['gt+in']]<-lm(relwt~glutest+instest,data=dbts)
+
+models<-factor(names(fm),levels=names(fm))
+```
+
+## Forward Selection
+
+```{r}
+stepAIC(lm(relwt~.,data=dbts),direction='forward')
+```
+
+## Backward Selection {.scrollable}
+
+```{r}
+stepAIC(lm(relwt~.,data=dbts),direction='backward')
+```
+
+## Stepwise Selection {.scrollable}
+
+```{r}
+stepAIC(lm(relwt~.,data=dbts),direction='both')
+```
+
+## Selected Models
+
+| Method   | Selected Model        |
+|----------|-----------------------|
+| Forward  | Full Model            |
+| Backward | glutest+instest+group |
+| Stepwise | glutest+instest+group |
+
+## R squared and Adjusted R squared
+
+```{r}
+# R2 and adjusted R2
+
+R2<-sapply(fm,function(model)summary(model)$r.squared)
+adj.R2<-sapply(fm,function(model)summary(model)$adj.r.squared)
+dotplot(R2+adj.R2~models,type='o',pch=16,auto.key=list(space="right"),xlab="Models")
+```
+
+## Mallow's Cp
+
+```{r}
+## Mallows Cp
+
+sigma.sq<-summary(fm[['gf+gt+ss+in+gr']])$sigma**2 #for the big model
+Cp <- sapply(fm, function(fit) extractAIC(fit, scale = sigma.sq)[2])
+dotplot(Cp~models,type='o',pch=16)
+
+```
+
+## AIC
+
+```{r}
+AIC <- sapply(fm, function(fit) AIC(fit))
+dotplot(AIC ~ models, type = "o", pch = 16,xlab="Models",main="AIC for different Models")
+```
+
+## BIC
+
+```{r}
+n <- nrow(dbts)
+BIC <- sapply(fm, function(fit) extractAIC(fit, k = log(n))[2])
+dotplot(BIC ~ models, type = "o", pch = 16)
+```
+
+## Heatplot of different models
+
+```{r}
+par(mfrow=c(1,1))
+reg.sub<-regsubsets(relwt~.,data=dbts)
+plot(reg.sub,scale='bic')
+```
+
+## Number of variable Selection
+
+```{r}
+par(mfrow=c(2,2))
+
+
+reg.sub<-regsubsets(relwt~.,data=dbts)
+reg.sum<-summary(reg.sub)
+
+
+# rss
+plot(reg.sum$rss,type='b',ylab='RSS',xlab='Number of Variables');box(lwd=2)
+
+# adj R2
+plot(reg.sum$adjr2,type='b',ylab='Adjusted Rsq',xlab='Number of Variables');box(lwd=2)
+
+max<-which.max(reg.sum$adjr2)
+points(max,reg.sum$adjr2[max],col='red',cex=2,pch=16)
+
+# Cp
+plot(reg.sum$cp,type='b',ylab='Cp',xlab='Number of Variables');box(lwd=2)
+
+min<-which.min(reg.sum$cp)
+points(min,reg.sum$cp[min],col='red',cex=2,pch=16)
+
+# bic
+plot(reg.sum$bic,type='b',ylab='BIC',xlab='Number of Variables');box(lwd=2)
+
+min<-which.min(reg.sum$bic)
+points(min,reg.sum$bic[min],col='red',cex=2,pch=16)
+
+```
+
+## Final Model
+
+$y_{i}=\beta_{0}+\beta_{1}x_{1i}+\beta_{4}x_{4i}+\beta_{5}z_{5i}+\beta_{6}z_{6i}+\epsilon_{i}\:i=1\left(1\right)n.$
+
+assuming, $\epsilon_{i}$'s are iid $\mathcal{N}\left(0,\sigma^{2}\right),\sigma^{2}$ is unknown.
+
+
+## Final model
+
+```{r}
+fmodel<-lm(relwt~glutest+instest+group,data=dbts)
+summary(fmodel)
+
+```
+
+## Fitted Vs Response
+
+```{r}
+#final model
+
+
+##Exploratory data analysis of final model
+
+#fitted model vs response
+plot(dbts$relwt,fmodel$fitted.values,xlim=c(0.6,1.4),ylim=c(0.6,1.4),
+     main='Fitted Value Vs Response',xlab='relwt',ylab='fitted value',
+     pch=20
+     );box(lwd=3)
+abline(a=0,b=1,col='red',lwd=1.5)
+
+```
+
+# Diagnostics for Final Model
+
+## Fitted Values vs Residuals
+
+```{r}
+ggobj=ggplot(data=dbts,mapping=aes(x=fitted(fmodel)
+,y=residuals(fmodel)))
+ggobj+geom_point()+geom_hline(yintercept=0,
+linetype="dashed",col="red")+ylim(1,-1)+
+xlab("Fitted")+ylab("Residuals")+
+labs(title="Fitted Values vs. Residuals")
+```
+
+## checking for normality {.scrollable}
+
+```{r}
+df=data.frame(y=residuals(fmodel))
+ggobj3=ggplot(df,aes(sample=y))+stat_qq(shape=5)+stat_qq_line(lwd=1,col="navyblue")+labs(y="Theoretical Quantiles",x="Sample Quantiles",title="QQPlot for the Residuals")
+ggobj3
+```
+
+## Kolmogorov-Smirnov Test.
+
+```{r}
+ks.test(residuals(lmodel1),'pnorm')
+```
+
+## Breusch-Pagan Test.
+
+```{r}
+bptest(lmodel1)
+```
+
+## Collinearity {.scrollable}
+
+`VIF` for the covariates of `Diabetes` dataset in our final model.
+
+```{r}
+vif(fmodel)
+```
+
+## Partial Residual Plot
+
+```{r}
+crPlots(fmodel)
+```
+
+## Added Variable Plot
+
+```{r}
+avPlots(fmodel)
+```
+
+## Outlier Detection
+
+Influential observation : 37,137.
+
+```{r}
+summary(lm(relwt~glutest+instest+group,data=dbts[c(-37,-137),]))
+```
+
+## Ridge Regression. {.scrollable}
+
+$\boldsymbol{\hat{\beta}_{\lambda}^{ridge}}=\left(X'X+\lambda I_{p}\right)^{-1}X'\boldsymbol{y}$
+
+```{r}
+X=dbts[-c(1,2,4)]
+lambda=10^seq(2,-3,length=100)
+ridge.mod=glmnet(X,dbts$relwt,alpha=0,lambda = lambda)
+summary(ridge.mod)
+newx=as.matrix(X,nc=3)
+newx=apply(newx,2,as.numeric)
+mse=NULL
+pred=predict(ridge.mod,s=lambda,newx = newx)
+
+
+```
+
+## Ridge
+
+```{r}
+for(l in 1:length(lambda))
+{
+  mse[l]=mean((pred[,l]-dbts$relwt)^2)
+}
+ggplotly(ggplot()+geom_point(aes(x=lambda,y=mse)),width = 1000,height = 500)
+```
+
+## CV for Ridge parametre
+
+```{r}
+ridge.cv=cv.glmnet(newx,dbts$relwt,alpha=0)
+cv.lam=ridge.cv$lambda.min
+ridge.min=glmnet(X,dbts$relwt,alpha=0,lambda=cv.lam)
+pred.cv=predict(ridge.min,s=cv.lam,newx=newx)
+
+cv=ggplot()+geom_point(aes(x=dbts$relwt,y=pred.cv))+
+  geom_abline(slope = 1,intercept = 0)
+ggplotly(cv,width = 1000,height = 500)
+```
+
+## LASSO {.scrollable}
+
+```{r}
+
+lambda=10^seq(2,-3,length=100)
+ridge.mod=glmnet(X,dbts$relwt,alpha=1,lambda = lambda)
+summary(ridge.mod)
+
+mse=NULL
+pred=predict(ridge.mod,s=lambda,newx = newx)
+
+
+```
+
+## LASSO
+
+```{r}
+for(l in 1:length(lambda))
+{
+  mse[l]=mean((pred[,l]-dbts$relwt)^2)
+}
+ggplotly(ggplot()+geom_point(aes(x=lambda,y=mse)),width = 1000,height = 500)
+```
+
+## CV for Lasso parametre
+
+```{r}
+ridge.cv=cv.glmnet(newx,dbts$relwt,alpha=1)
+cv.lam=ridge.cv$lambda.min
+ridge.min=glmnet(X,dbts$relwt,alpha=1,lambda=cv.lam)
+pred.cv=predict(ridge.min,s=cv.lam,newx=newx)
+
+cv=ggplot()+geom_point(aes(x=dbts$relwt,y=pred.cv))+
+  geom_abline(slope = 1,intercept = 0)
+ggplotly(cv,width = 1000,height = 500)
+```
+
+## Boxcox
+
+-   Choice for $\lambda$
+
+```{r}
+require(MASS)
+model=lm(relwt~ glutest+instest+group,data=dbts)
+bc=boxcox(model)
+
+```
+
+## Boxcox Model
+
+```{r}
+lambda=bc$x[which.max(bc$y)]
+res.bc=(dbts$relwt**lambda-1)/lambda
+model.bc=lm(res.bc~glutest+instest+group,data=dbts)
+summary(model.bc)
+```
+
+## Box-cox {.scrollable}
+
+-   Predicted value vs actual value
+
+```{r}
+pred.bc=(predict(model.bc)*lambda+1)**(1/lambda)
+bc=ggplot()+geom_point(aes(pred.bc,res.bc))+geom_abline(intercept = 0,slope=1)
+bc
+
+```
+
+## Durbin-Watson Test
+
+```{r}
+dw=durbinWatsonTest(model,max.lag = 1)
+dw
+```
+
+## Auto-correlation Plot
+
+```{r}
+resi=residuals(model)
+acf(resi,lag.max = 10)
+```
+
+## Partial Auto-correlation Plot
+
+```{r}
+resi=residuals(model)
+pacf(resi,lag.max = 10)
+```
+
+## Linear Model with Auto-correlated error
+
+```{r}
+require(nlme)
+gls.model=gls(relwt~.,correlation =corAR1(),data = dbts )
+summary(gls.model)
+```
+
+## 
+
+-   Predicted value vs Response.
+
+```{r}
+pred.gls=predict(gls.model)
+p=ggplot()+geom_point(aes(pred.gls,dbts$relwt))+geom_abline(intercept = 0,slope=1)
+ggplotly(p,width=1000,height = 500)
+```
+
+## M-estimation.
+
+Here we will again fit the final linear model but this time using Huber's Loss functon
+
+```{r}
+m=rlm(relwt~.,data=dbts)
+summary(m) 
+```
+
+## M-estimation
+
+Now we will measure the accuracy
+
+-   Plotting Response against Fitted Values
+
+```{r}
+pred=predict(m)
+plot(pred,dbts$relwt) 
+abline(c(0,1))
+```
+
+## Comparison between models
+
+| Different models   | MSE    |
+|--------------------|--------|
+| BoxCox             | 0.0105 |
+| Ridge              | 0.0147 |
+| PCR                | 0.012  |
+| LASSO              | 0.0122 |
+| M-estimation       | 0.0103 |
+| Final Linear Model | 0.011  |
+
+## References.
+
+1.  Linear Regression Analysis - George AF Seber, Alan J. Lee. - Wiley.
+
+2.  Introduction to Linear Regression Analysis - Douglas C. Montgomery - Wiley.
+
+3.  R Documentation
+
+
+
+# Questions??
+
