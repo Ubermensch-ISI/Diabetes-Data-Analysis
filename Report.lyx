@@ -1,0 +1,5149 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\use_default_options true
+\begin_modules
+knitr
+customHeadersFooters
+shapepar
+enumitem
+tcolorbox
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\rightmargin 3cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Left Header
+
+\noun on
+Indian Statistical Institute, Delhi.
+\end_layout
+
+\begin_layout Right Header
+Project : Regression Techniques.
+\end_layout
+
+\begin_layout Title
+
+\series bold
+\size largest
+Analyzing the data, 
+\begin_inset Quotes eld
+\end_inset
+
+Diabetes
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename Indianstatisticalinstitutelogo.svg.png
+	width 5cm
+	height 6cm
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\series default
+\size default
+Arpan Dutta
+\series bold
+\size largest
+
+\begin_inset Newline newline
+\end_inset
+
+
+\series default
+\size default
+Soumyajit Roy
+\series bold
+\size largest
+
+\begin_inset Newline newline
+\end_inset
+
+
+\series default
+\size default
+Sourav Biswas
+\begin_inset Newline newline
+\end_inset
+
+MStat.
+ I : 2023
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Introduction.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The 
+\series bold
+
+\begin_inset Quotes eld
+\end_inset
+
+diabetes.csv
+\begin_inset Quotes erd
+\end_inset
+
+
+\series default
+ dataset consists of data related to relative weight and results of different
+ tests to diagonise diabetes of 
+\begin_inset Formula $144$
+\end_inset
+
+ persons.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The dataset consists of the following columns :
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+\size large
+relwt
+\series default
+ : Relative weight.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+\size large
+glufast
+\series default
+ : Fasting Plasma Glucose (FPG).
+ This test is the simplest and fastest way to measure blood glucose and
+ diagonise diabetes.
+ Fasting means one has nothing to eat or drink (except water) for 
+\begin_inset Formula $8$
+\end_inset
+
+ to 
+\begin_inset Formula $12$
+\end_inset
+
+ hours before the test.
+ One will be diagonised with diabetes if blood glucose level is 
+\begin_inset Formula $126$
+\end_inset
+
+ mg/dL or greater on two separate tests.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+\size large
+glutest
+\series default
+ : Test Plasma Glucose.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+\size large
+sspg
+\series default
+ : Steady State Plasma Glucose.
+ It's a period of time where the coefficients of variations for blood glucose,
+ plasma insulin and GIR are less than 
+\begin_inset Formula $5$
+\end_inset
+
+%.
+ This period is usually defined as being greater than 
+\begin_inset Formula $30$
+\end_inset
+
+ minutes, and at least 
+\begin_inset Formula $1$
+\end_inset
+
+ hour after the initiation of insulin infusion.
+ The expected values for normal fasting blood glucose concentration are
+ between 
+\begin_inset Formula $70$
+\end_inset
+
+ mg/dL and 
+\begin_inset Formula $100$
+\end_inset
+
+ mg/dL.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+\size large
+instest
+\series default
+ : Plasma Insulin during Test.
+ A blood test to measure insuline levels produced in our body.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+\size large
+group
+\series default
+ : Clinical group.
+ A Categorical Variate with 
+\begin_inset Formula $3$
+\end_inset
+
+ levels, 
+\begin_inset Formula $1$
+\end_inset
+
+ means Over Diabetic, 
+\begin_inset Formula $2$
+\end_inset
+
+ means chem.
+ diabetic, 
+\begin_inset Formula $3$
+\end_inset
+
+ means normal.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Now we perform the analysis.
+\end_layout
+
+\begin_layout Chapter
+R Packages used.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA,echo=F>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+options(warn=-1)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+library(ggplot2) 
+\end_layout
+
+\begin_layout Plain Layout
+
+library(tibble)
+\end_layout
+
+\begin_layout Plain Layout
+
+library(PerformanceAnalytics)
+\end_layout
+
+\begin_layout Plain Layout
+
+library(wesanderson) 
+\end_layout
+
+\begin_layout Plain Layout
+
+library(gridExtra) 
+\end_layout
+
+\begin_layout Plain Layout
+
+library(car)
+\end_layout
+
+\begin_layout Plain Layout
+
+library(glmnet)
+\end_layout
+
+\begin_layout Plain Layout
+
+library(pls)
+\end_layout
+
+\begin_layout Plain Layout
+
+library(lmtest)
+\end_layout
+
+\begin_layout Plain Layout
+
+library(nlme)
+\end_layout
+
+\begin_layout Plain Layout
+
+library(MASS)
+\end_layout
+
+\begin_layout Plain Layout
+
+library(lattice)
+\end_layout
+
+\begin_layout Plain Layout
+
+library(leaps)
+\end_layout
+
+\begin_layout Plain Layout
+
+library(splines)
+\end_layout
+
+\begin_layout Plain Layout
+
+library(plyr)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+The Dataset.
+\end_layout
+
+\begin_layout Section
+Importing the Datset.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+We load the dataset in R and save it as a dataframe named 
+\begin_inset Quotes eld
+\end_inset
+
+
+\series bold
+dbts
+\series default
+
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+dbts=read.csv("E:/RFiles/diabetes.csv") 
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Now we convert the variable 
+\begin_inset Quotes eld
+\end_inset
+
+
+\series bold
+group
+\series default
+
+\begin_inset Quotes erd
+\end_inset
+
+ into a factor covariate, having 
+\begin_inset Formula $3$
+\end_inset
+
+ levels.
+ After that, for the sake of convenience, the levels are relabeled.
+ From now, we shall denote 
+\begin_inset Formula $0$
+\end_inset
+
+ by 'Normal', 
+\begin_inset Formula $1$
+\end_inset
+
+ by 'Chem.
+ Diabetic', 
+\begin_inset Formula $2$
+\end_inset
+
+ by 'Over Diabetic'.
+ Our reference level will be the Normal group, i.e.
+ our whole analysis will be with respect to a person who is not diabetic.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+#---Converting appropriate variables into factors--- 
+\end_layout
+
+\begin_layout Plain Layout
+
+dbts$group=as.factor(dbts$group) 
+\end_layout
+
+\begin_layout Plain Layout
+
+#-changing levels--- 
+\end_layout
+
+\begin_layout Plain Layout
+
+levels(dbts$group)=c("2","1","0") 
+\end_layout
+
+\begin_layout Plain Layout
+
+#--Releveling---
+\end_layout
+
+\begin_layout Plain Layout
+
+dbts$group=relevel(dbts$group,ref="0") 
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+
+\size large
+The structure of the dataset,
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+str(dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+As we can see, the dataset has 
+\begin_inset Formula $144$
+\end_inset
+
+ observations of 
+\begin_inset Formula $\boldsymbol{6}$
+\end_inset
+
+ variables.
+ We would like to infer the relationship of 
+\begin_inset Quotes eld
+\end_inset
+
+
+\series bold
+relwt
+\series default
+
+\begin_inset Quotes erd
+\end_inset
+
+ with the other variables.
+ We are showing first few rows of the dataset as follows,
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+head(dbts,5)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+
+\size large
+Statistical summary of 
+\series bold
+'dbts'
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+summary(dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Groupwise Summary.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+dlply(dbts,.(group),summary)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\size large
+Some Observations : 
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+On an average patients had a large amount of Test Plasma Glucose as compared
+ to Fasting Plasma Glucose and Steady State Plasma Glucose.
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+Insulin levels and Steady State Plasma Glucose were more or less same.
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+There were 
+\begin_inset Formula $32$
+\end_inset
+
+ over diabetic, 
+\begin_inset Formula $36$
+\end_inset
+
+ chem diabetic and 
+\begin_inset Formula $76$
+\end_inset
+
+ normal people, Among them, mean relative weight was highest for chem.
+ diabetic people.
+\end_layout
+
+\begin_layout Chapter
+Dependency among the response and covariates and Modelling.
+\end_layout
+
+\begin_layout Section
+
+\size large
+Effects of Covariates on Response.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+#---For Quantitative Responses---
+\end_layout
+
+\begin_layout Plain Layout
+
+chart.Correlation(dbts[,-6],main=
+\begin_inset Quotes erd
+\end_inset
+
+Relationship among the Quantitative Covariates
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+This plot reveals some interesting features, the response is much afffected
+ by the quantitative responses so the regression may be useful.
+ Also, there are covariates which are highly correlated among themselves
+ like glutest and glufast, glutest and instest, glufast and instest etc.
+ which can affect our estimates.
+\end_layout
+
+\begin_layout Section
+
+\size large
+Boxplot of response w.r.t.
+ 'group'.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+ggplot(dbts,mapping=aes(x=group,y=relwt,fill=group))+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_boxplot()+stat_summary(fun=
+\begin_inset Quotes erd
+\end_inset
+
+mean
+\begin_inset Quotes erd
+\end_inset
+
+,geom=
+\begin_inset Quotes erd
+\end_inset
+
+point
+\begin_inset Quotes erd
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Plain Layout
+
+shape=8,size=2,col=
+\begin_inset Quotes erd
+\end_inset
+
+white
+\begin_inset Quotes erd
+\end_inset
+
+)+
+\end_layout
+
+\begin_layout Plain Layout
+
+labs(title=
+\begin_inset Quotes erd
+\end_inset
+
+Boxplot of Relative Weight w.r.t different groups.
+\begin_inset Quotes erd
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Plain Layout
+
+y=
+\begin_inset Quotes erd
+\end_inset
+
+Relative Weight
+\begin_inset Quotes erd
+\end_inset
+
+,x=
+\begin_inset Quotes erd
+\end_inset
+
+Group
+\begin_inset Quotes erd
+\end_inset
+
+)+theme(legend.position=
+\begin_inset Quotes erd
+\end_inset
+
+top
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Densityplot of response w.r.t.
+ 'group'.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+dp=densityplot(~relwt,data=dbts,groups=group,plot.points=F,
+\end_layout
+
+\begin_layout Plain Layout
+
+ref=T,main=
+\begin_inset Quotes erd
+\end_inset
+
+Density Plot of relative weight w.r.t 
+\end_layout
+
+\begin_layout Plain Layout
+
+'group'
+\begin_inset Quotes erd
+\end_inset
+
+,auto.key=list("right",title="Group")) 
+\end_layout
+
+\begin_layout Plain Layout
+
+plot(dp)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The response is also greatly affected by the factor 'group'.
+ It will be useful if we use the given variables as our covariates.
+\end_layout
+
+\begin_layout Section
+Modelling.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+First we consider the full model, i.e.
+ regressing with all the covariates available.
+ As we have one categorical variable and other covariates are quantitative,
+ the model will be an ANCOVA model.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The Model will be as follows,
+\begin_inset Formula 
+\[
+y_{i}=\beta_{0}+\beta_{1}x_{1i}+\beta_{2}x_{2i}+\beta_{3}x_{3i}+\beta_{4}x_{4i}+\beta_{5}z_{5i}+\beta_{6}z_{6i}+\epsilon_{i}\:i=1\left(1\right)n.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+assuming, 
+\begin_inset Formula $\epsilon_{i}$
+\end_inset
+
+'s are iid 
+\begin_inset Formula $\mathcal{N}\left(0,\sigma^{2}\right),$
+\end_inset
+
+
+\begin_inset Formula $\sigma^{2}$
+\end_inset
+
+ is unknown.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+In Matrix form,
+\begin_inset Formula 
+\[
+\boldsymbol{y}=X\boldsymbol{\beta}+\boldsymbol{\epsilon},\:\boldsymbol{\epsilon}\sim\mathcal{N}\left(0,\sigma^{2}I_{n}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+where,
+\end_layout
+
+\begin_layout Standard
+
+\size large
+\begin_inset Formula 
+\[
+X=\left(\boldsymbol{1}_{144},\boldsymbol{x_{1}},\boldsymbol{x_{2}},\boldsymbol{x_{3}},\boldsymbol{x_{4}}\right),\boldsymbol{\beta}_{7\times1}=\left(\beta_{0},\beta_{1},\beta_{2},\beta_{3},\beta_{4},\beta_{5},\beta_{6}\right)'
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+No.
+ of Covariates 
+\begin_inset Formula $p=7.$
+\end_inset
+
+ (Including the Intercept)
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+ stands for Relative Weight.
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+\begin_inset Formula $\boldsymbol{x_{1`}}$
+\end_inset
+
+is Glutest.
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+\begin_inset Formula $\boldsymbol{x_{2}}$
+\end_inset
+
+ is Glufast.
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+\begin_inset Formula $\boldsymbol{x_{3}}$
+\end_inset
+
+ is sspg.
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+\begin_inset Formula $\boldsymbol{x}_{4}$
+\end_inset
+
+ is Instest.
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+\begin_inset Formula $\boldsymbol{z_{5}}$
+\end_inset
+
+ is the indicator whether the person is chem.
+ diabetic.
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+\begin_inset Formula $\boldsymbol{z_{6}}$
+\end_inset
+
+ is the indicator whether the person is over diabetic.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+We name the full model as 
+\series bold
+'lmodel1'
+\series default
+ which will be used further.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+p=7	#--#Covariates 
+\end_layout
+
+\begin_layout Plain Layout
+
+n=nrow(dbts) #--#Observations.
+\end_layout
+
+\begin_layout Plain Layout
+
+lmodel1=lm(relwt~.,data=dbts) 
+\end_layout
+
+\begin_layout Plain Layout
+
+summary(lmodel1) 
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The full model depicts that the variales glutest, instest can be dropped
+ frrom the model, but this model stands on several assumptions, so we need
+ to check for validity first.
+\end_layout
+
+\begin_layout Chapter
+Exploratory Diagonstics.
+\end_layout
+
+\begin_layout Section
+Checking for Homoscedasticity.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Here we check for the homoscedasticity of the errors by some exploratory
+ diagonstics.
+ We plot the residuals against the different predictors and fitted values.
+ A scatter-plot with the residuals on the vertical axis and the predictor
+ variable on the horizontal axis should ideally look like a constant-width
+ blur of points around a straight, flat line at 
+\begin_inset Formula $y=0.$
+\end_inset
+
+ Deviations from this like changing width, curvature, substancial regions
+ of the 
+\begin_inset Formula $x$
+\end_inset
+
+-axis where the average residuals are either positive or negative are all
+ signs that the model is mis-specified at the beginning.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Plotting the residuals against predictors, and fitted values.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+ggobj1=ggplot(data=dbts,mapping=aes(x=glufast,
+\end_layout
+
+\begin_layout Plain Layout
+
+y=residuals(lmodel1)))+geom_point()+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_hline(yintercept=0,linetype="dashed",col="red")+
+\end_layout
+
+\begin_layout Plain Layout
+
+ylim(1,-1)+xlab("Glufast")+ylab("Residuals")+
+\end_layout
+
+\begin_layout Plain Layout
+
+labs(title="Glufast vs.
+ Residual")
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ggobj2=ggplot(data=dbts,mapping=aes(x=glutest,
+\end_layout
+
+\begin_layout Plain Layout
+
+y=residuals(lmodel1)))+geom_point()+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_hline(yintercept=0,linetype="dashed",col="red")+
+\end_layout
+
+\begin_layout Plain Layout
+
+ylim(1,-1)+xlab("Glutest")+ylab("Residuals")+
+\end_layout
+
+\begin_layout Plain Layout
+
+labs(title="Glutest vs.
+ Residual")
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ggobj3=ggplot(data=dbts,mapping=aes(x=sspg,
+\end_layout
+
+\begin_layout Plain Layout
+
+y=residuals(lmodel1)))+geom_point()+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_hline(yintercept=0,linetype="dashed",col="red")+
+\end_layout
+
+\begin_layout Plain Layout
+
+ylim(1,-1)+xlab("sspg")+ylab("Residuals")+
+\end_layout
+
+\begin_layout Plain Layout
+
+labs(title="sspg vs.
+ Residual")
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ggobj4=ggplot(data=dbts,mapping=aes(x=instest,
+\end_layout
+
+\begin_layout Plain Layout
+
+y=residuals(lmodel1)))+geom_point()+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_hline(yintercept=0,linetype="dashed",col="red")+
+\end_layout
+
+\begin_layout Plain Layout
+
+ylim(1,-1)+xlab("instest")+ylab("Residuals")+
+\end_layout
+
+\begin_layout Plain Layout
+
+labs(title="instest vs.
+ Residual")
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ggobj5=ggplot(dbts,mapping=aes(x=group,
+\end_layout
+
+\begin_layout Plain Layout
+
+y=residuals(lmodel1),fill=group))+geom_boxplot()+
+\end_layout
+
+\begin_layout Plain Layout
+
+stat_summary(fun=
+\begin_inset Quotes erd
+\end_inset
+
+mean
+\begin_inset Quotes erd
+\end_inset
+
+,geom=
+\begin_inset Quotes erd
+\end_inset
+
+point
+\begin_inset Quotes erd
+\end_inset
+
+,shape=8,size=2,col=
+\begin_inset Quotes erd
+\end_inset
+
+white
+\begin_inset Quotes erd
+\end_inset
+
+)+
+\end_layout
+
+\begin_layout Plain Layout
+
+labs(title=
+\begin_inset Quotes erd
+\end_inset
+
+Boxplot of Residuals w.r.t 
+\backslash
+n different groups.
+\begin_inset Quotes erd
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Plain Layout
+
+y=
+\begin_inset Quotes erd
+\end_inset
+
+Residuals
+\begin_inset Quotes erd
+\end_inset
+
+,x=
+\begin_inset Quotes erd
+\end_inset
+
+Group
+\begin_inset Quotes erd
+\end_inset
+
+)+theme(legend.position=
+\begin_inset Quotes erd
+\end_inset
+
+top
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+grid.arrange(ggobj1,ggobj2,ggobj3,ggobj4,ncol=2,nrow=2)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ggobj=ggplot(data=dbts,mapping=aes(x=fitted(lmodel1),y=residuals(lmodel1)))
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ggobj6=ggobj+geom_point()+geom_hline(yintercept=0,linetype="dashed",col="red")+
+\end_layout
+
+\begin_layout Plain Layout
+
+ylim(1,-1)+xlab("Fitted")+
+\end_layout
+
+\begin_layout Plain Layout
+
+ylab("Residuals")+labs(title="Fitted vs.
+ Residual")
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+grid.arrange(ggobj5,ggobj6,nrow=1,ncol=2)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+These plots give indication that the errors in the model may be more or
+ less homoscedastic.
+ In spite of that we perform some tests to verify whether the homoscedastic
+ assumptions are valid or not.
+\end_layout
+
+\begin_layout Section
+Tests for Heteroscedasticity.
+\end_layout
+
+\begin_layout Subsection
+Breusch-Pagan Test.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Here from the full model we calculate the residuals, say 
+\begin_inset Formula $\boldsymbol{e}=\left(I-P\right)\boldsymbol{y}$
+\end_inset
+
+, where 
+\begin_inset Formula $P=X\left(X'X\right)^{-1}X'$
+\end_inset
+
+ and obtain 
+\begin_inset Formula $RSS=\boldsymbol{e}'\left(I-P\right)\boldsymbol{e}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\size large
+We, would test the null hypothesis 
+\begin_inset Formula $H_{0}:$
+\end_inset
+
+ The errors are homoscedastic, against, 
+\begin_inset Formula $H_{1}:H_{0}$
+\end_inset
+
+ isn't true.
+ Regressing say 
+\begin_inset Formula $p_{i}=\frac{e_{I}}{rss}$
+\end_inset
+
+ on the available covariates.
+ So, we would have a model like,
+\begin_inset Formula 
+\[
+p_{i}=\alpha_{0}+\alpha_{1}x_{1i}+\alpha_{2}x_{2i}+\alpha_{3}x_{3i}+\alpha_{4}x_{4i}+\alpha_{5}z_{5i}+\alpha_{6}z_{6i}+\nu_{i}\quad i=1\left(1\right)n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The 
+\begin_inset Formula $ESS$
+\end_inset
+
+ is the sample variance of fitted values got from the above model.
+ Assuming errors are normal, we have,
+\begin_inset Formula 
+\[
+\chi^{2}=\frac{1}{2}ESS\sim\chi_{6}^{2}\;\mathrm{for\:sufficiently\;large}\:n.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+bptest(lmodel1)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The 
+\begin_inset Formula $p-$
+\end_inset
+
+value for the test is 
+\begin_inset Formula $0.1212.$
+\end_inset
+
+ At level 
+\begin_inset Formula $\alpha=0.05$
+\end_inset
+
+ we have to accept the null hypothesis, i.e.
+ the errors may be homoscedastic.
+ 
+\end_layout
+
+\begin_layout Section
+Checking for Normality.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Now we check for the Normality.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+df=data.frame(y=residuals(lmodel1)) 
+\end_layout
+
+\begin_layout Plain Layout
+
+ggn.obj=ggplot(df,aes(x=df$y,y=after_stat(density)))+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_histogram(color=
+\begin_inset Quotes erd
+\end_inset
+
+orange
+\begin_inset Quotes erd
+\end_inset
+
+,fill=
+\begin_inset Quotes erd
+\end_inset
+
+navyblue
+\begin_inset Quotes erd
+\end_inset
+
+)+
+\end_layout
+
+\begin_layout Plain Layout
+
+labs(title=
+\begin_inset Quotes erd
+\end_inset
+
+Histogram for the residuals 
+\backslash
+n of the full model
+\begin_inset Quotes erd
+\end_inset
+
+,x=
+\begin_inset Quotes erd
+\end_inset
+
+Residuals
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+,y=
+\begin_inset Quotes erd
+\end_inset
+
+Frequency Density
+\begin_inset Quotes erd
+\end_inset
+
+)+geom_density(alpha=0.2)
+\end_layout
+
+\begin_layout Plain Layout
+
+ggn.obj2=ggplot(df,aes(sample=y))+
+\end_layout
+
+\begin_layout Plain Layout
+
+stat_qq(shape=5)+stat_qq_line(lwd=1,col="navyblue")+
+\end_layout
+
+\begin_layout Plain Layout
+
+labs(y="Theoretical Quantiles",x="Sample Quantiles",
+\end_layout
+
+\begin_layout Plain Layout
+
+title="QQPlot for the Residuals") 
+\end_layout
+
+\begin_layout Plain Layout
+
+grid.arrange(ggn.obj,ggn.obj2,nrow=1,ncol=2)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Normality assumption slightly violated.
+ 
+\end_layout
+
+\begin_layout Section
+Testing for Normality.
+\end_layout
+
+\begin_layout Subsection
+Kolmogorov-Smirnov Test.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+To check for whether a sample 
+\begin_inset Formula $\boldsymbol{x}\sim F$
+\end_inset
+
+ (in our case 
+\begin_inset Formula $\boldsymbol{e}$
+\end_inset
+
+) comes from a normal distribution, i.e.
+ the null hypothesis, 
+\begin_inset Formula $H_{0}:F=\Phi$
+\end_inset
+
+ against 
+\begin_inset Formula $H_{1}:F\neq\Phi$
+\end_inset
+
+, we calculate the empirical CDF 
+\begin_inset Formula $F_{n}$
+\end_inset
+
+, defined as,
+\begin_inset Formula 
+\[
+F_{n}\left(x\right)=\frac{1}{n}\sum_{i=1}^{n}1_{\left(-\infty,x\right]}\left(X_{i}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The Kolmogorov-Smirnov Statistic for a given CDF 
+\begin_inset Formula $F\left(x\right)$
+\end_inset
+
+ (in our case 
+\begin_inset Formula $\Phi\left(x\right)$
+\end_inset
+
+) is,
+\begin_inset Formula 
+\[
+D_{n}=\underset{x}{\sup}\left|F_{n}\left(x\right)-\Phi\left(x\right)\right|
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+By Glivanko-Cantelli Lemma, if the sample comes from the distribution 
+\begin_inset Formula $\Phi\left(x\right)$
+\end_inset
+
+, then 
+\begin_inset Formula $D_{n}$
+\end_inset
+
+ converges to 
+\begin_inset Formula $0$
+\end_inset
+
+ almost surely as 
+\begin_inset Formula $n\rightarrow\infty.$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+\size large
+In practice, we reject 
+\begin_inset Formula $H_{0}$
+\end_inset
+
+ at level 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ iff 
+\begin_inset Formula $D_{n}\left(\mathrm{obs.}\right)>D_{\nicefrac{\alpha}{2}}^{+}.$
+\end_inset
+
+ 
+\begin_inset Formula $D_{\nicefrac{\alpha}{2}}^{+}$
+\end_inset
+
+ for different 
+\begin_inset Formula $\left(n,\alpha\right)$
+\end_inset
+
+ is given in DB Owen's Table.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+ks.test(residuals(lmodel1),'pnorm')
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The p-value for the test is very small.
+ At level 
+\begin_inset Formula $\alpha=0.05$
+\end_inset
+
+ we reject the null hypothesis stated above.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+But, for inferential purposes, we would stick to normality.
+\end_layout
+
+\begin_layout Chapter
+Outlier Detection.
+\end_layout
+
+\begin_layout Section
+Leverages.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Calculating the hat matrix diagonals 
+\begin_inset Formula $h_{ii}$
+\end_inset
+
+.
+ We use the cutoff 
+\begin_inset Formula $\nicefrac{2p}{n}.$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+gghat=ggplot(data.frame(y=hatvalues(lmodel1)),
+\end_layout
+
+\begin_layout Plain Layout
+
+mapping=aes(y=y,x=1:length(y)))+labs(title="Identifying High 
+\end_layout
+
+\begin_layout Plain Layout
+
+Leverage Points",x="Index",y="Hat Matrix Diagonals") 
+\end_layout
+
+\begin_layout Plain Layout
+
+plot2=gghat+geom_point()+geom_hline(yintercept=2*p/n,col="grey",lwd=1) 
+\end_layout
+
+\begin_layout Plain Layout
+
+gghat+geom_point()+geom_hline(yintercept=2*p/n,col="grey",
+\end_layout
+
+\begin_layout Plain Layout
+
+lwd=1)+geom_label(aes(label=1:length(y))) 
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+From the plot we see that there are many high leverage points.
+ But not all the high leverage points influences the regression line, hence
+ we go for some influential measures.
+\end_layout
+
+\begin_layout Section
+Influential Observations.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+To check for influential observations we use various measures like 
+\end_layout
+
+\begin_layout Standard
+
+\size large
+\begin_inset Formula $DFFITS,DFBETAS,COVRATIO$
+\end_inset
+
+, Cook's Distance.
+\end_layout
+
+\begin_layout Subsection
+DFFITS.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Standardizing by estimated standard deviation 
+\begin_inset Formula $S\left(i\right)h_{i}^{\nicefrac{1}{2}}$
+\end_inset
+
+ of 
+\begin_inset Formula $\boldsymbol{x_{i}}'\boldsymbol{\hat{\beta}}$
+\end_inset
+
+, the working formula for 
+\begin_inset Formula $DFFITSS_{i}$
+\end_inset
+
+ is,
+\begin_inset Formula 
+\[
+DFFITSS_{i}=\frac{h_{i}^{\nicefrac{1}{2}}e_{i}}{S\left(i\right)\left(1-h_{i}\right)}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+We use the cutoff 
+\begin_inset Formula $2\sqrt{\frac{p}{n}}$
+\end_inset
+
+ for finding influential observations.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Plotting DFFITS.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+ggdffits=ggplot(data.frame(y=dffits(lmodel1)),
+\end_layout
+
+\begin_layout Plain Layout
+
+mapping=aes(y=y,x=1:length(y)))+
+\end_layout
+
+\begin_layout Plain Layout
+
+labs(title="Measuring DFFIT",x="Index",y="DFFITS") 
+\end_layout
+
+\begin_layout Plain Layout
+
+plot1=ggdffits+geom_point()+geom_hline(yintercept=2*sqrt(p/n),col="grey",lwd=1)
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ggdffits+geom_point()+geom_hline(yintercept=2*sqrt(p/n)
+\end_layout
+
+\begin_layout Plain Layout
+
+,col="grey",lwd=1)+geom_label(aes(label=1:length(y))) 
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+DFBETAS.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+DFBETAS_{ij}=\frac{\hat{\beta}_{j}-\hat{\beta}\left(i\right)_{j}}{S\left(i\right)\left[\left(X'X\right)^{-1}\right]_{j+1,j+1}^{\nicefrac{1}{2}}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+A suitable cutoff will be 
+\begin_inset Formula $\nicefrac{2}{\sqrt{n}}.$
+\end_inset
+
+ We plot for different covariates.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+lmodel1.dfbetas=data.frame(dfbetas(lmodel1)) 
+\end_layout
+
+\begin_layout Plain Layout
+
+db1=ggplot(data.frame(y=lmodel1.dfbetas[,2])
+\end_layout
+
+\begin_layout Plain Layout
+
+,mapping=aes(y=y,x=1:length(y)))+geom_point()+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_hline(yintercept=2/sqrt(n))+labs(title="glufast",x="Index",y="dfbetas")
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+db2=ggplot(data.frame(y=lmodel1.dfbetas[,3])
+\end_layout
+
+\begin_layout Plain Layout
+
+,mapping=aes(y=y,x=1:length(y)))+geom_point()+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_hline(yintercept=2/sqrt(n))+labs(title="glutest",x="Index",y="dfbetas")
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+db3=ggplot(data.frame(y=lmodel1.dfbetas[,4])
+\end_layout
+
+\begin_layout Plain Layout
+
+,mapping=aes(y=y,x=1:length(y)))+geom_point()+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_hline(yintercept=2/sqrt(n))+labs(title="sspg)",x="Index",y="dfbetas")
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+db4=ggplot(data.frame(y=lmodel1.dfbetas[,5])
+\end_layout
+
+\begin_layout Plain Layout
+
+,mapping=aes(y=y,x=1:length(y)))+geom_point()+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_hline(yintercept=2/sqrt(n))+labs(title="glufast",x="Index",y="instest")
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+grid.arrange(db1+geom_label(aes(label=1:length(y))),
+\end_layout
+
+\begin_layout Plain Layout
+
+db2+geom_label(aes(label=1:length(y))),db3+geom_label(aes(label=1:length(y)))
+\end_layout
+
+\begin_layout Plain Layout
+
+,db4+geom_label(aes(label=1:length(y))),ncol=2,nrow=2) 
+\end_layout
+
+\begin_layout Plain Layout
+
+#---grid.arrange(db1,db2,db3,db4,ncol=2,nrow=2) 
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+COVRATIO.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The expression for 
+\begin_inset Formula $COVRATIO$
+\end_inset
+
+ is,
+\begin_inset Formula 
+\[
+\frac{\det\left\{ S\left(i\right)^{2}\left[X\left(i\right)'X\left(i\right)\right]^{-1}\right\} }{\det\left[S^{2}\left(X'X\right)^{-1}\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The cases having 
+\begin_inset Formula $\left|COVRATIO-1\right|>\frac{3p}{n}$
+\end_inset
+
+ are considered to have high influence.
+ Plotting 
+\begin_inset Formula $COVRATIO$
+\end_inset
+
+, 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+cratio=data.frame(y=covratio(lmodel1))
+\end_layout
+
+\begin_layout Plain Layout
+
+ggplot(cratio,mapping=aes(x=1:length(y),y=y))+geom_point()+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_hline(yintercept=1+(3*p/n),col=
+\begin_inset Quotes erd
+\end_inset
+
+grey
+\begin_inset Quotes erd
+\end_inset
+
+)+geom_hline(yintercept=1-(3*p/n)
+\end_layout
+
+\begin_layout Plain Layout
+
+,col=
+\begin_inset Quotes erd
+\end_inset
+
+grey
+\begin_inset Quotes erd
+\end_inset
+
+)+labs(title=
+\begin_inset Quotes erd
+\end_inset
+
+COVRATIO of the full model.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+,x=
+\begin_inset Quotes erd
+\end_inset
+
+Index
+\begin_inset Quotes erd
+\end_inset
+
+,y=
+\begin_inset Quotes erd
+\end_inset
+
+Covratio
+\begin_inset Quotes erd
+\end_inset
+
+)+geom_label(aes(label=1:length(y)))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Cook's Distance.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Cook [1977] suggested measuring the distance of 
+\begin_inset Formula $\boldsymbol{\hat{\beta}\left(i\right)}$
+\end_inset
+
+ from 
+\begin_inset Formula $\boldsymbol{\hat{\beta}}$
+\end_inset
+
+ by using the measure,
+\begin_inset Formula 
+\[
+D_{i}=\frac{\left(\boldsymbol{\hat{\beta}\left(i\right)}-\boldsymbol{\hat{\beta}}\right)'X'X\left(\boldsymbol{\hat{\beta}\left(i\right)}-\boldsymbol{\hat{\beta}}\right)}{pS^{2}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+He suggested flagging as suspicious those points for which 
+\begin_inset Formula $D_{i}>F_{p,n-p}^{0.10}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+cd=data.frame(y=cooks.distance(lmodel1))
+\end_layout
+
+\begin_layout Plain Layout
+
+ggplot(cd,mapping=aes(x=1:length(y),y=y))+geom_point()+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_hline(yintercept=qf(p=0.10,df1=p,df2=n-p,
+\end_layout
+
+\begin_layout Plain Layout
+
+lower.tail=T),col=
+\begin_inset Quotes erd
+\end_inset
+
+grey
+\begin_inset Quotes erd
+\end_inset
+
+)+labs(title=
+\begin_inset Quotes erd
+\end_inset
+
+Cook's Distance
+\end_layout
+
+\begin_layout Plain Layout
+
+of the full model.
+\begin_inset Quotes erd
+\end_inset
+
+,x=
+\begin_inset Quotes erd
+\end_inset
+
+Index
+\begin_inset Quotes erd
+\end_inset
+
+,y=
+\begin_inset Quotes erd
+\end_inset
+
+Cook's Distance
+\begin_inset Quotes erd
+\end_inset
+
+)+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_label(aes(label=1:length(y)))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+And finally, the potential influential observations are, 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+influence.measures(lmodel1)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+From all the and the table above, we the index of the observations which
+ may affect the regression the most are 
+\begin_inset Formula $37,86,134,137,144.$
+\end_inset
+
+ So we discard them.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+#--Old data---
+\end_layout
+
+\begin_layout Plain Layout
+
+old.dbts=dbts
+\end_layout
+
+\begin_layout Plain Layout
+
+#--outlier discarded data---
+\end_layout
+
+\begin_layout Plain Layout
+
+dbts=dbts[-c(37,86,134,137,144),]
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Autocorrelation detection.
+\end_layout
+
+\begin_layout Section
+ACF and PACF Plots.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+To check whether the residuals are autocorrelated or not, we have the autocorrel
+ation function at lag 
+\begin_inset Formula $h$
+\end_inset
+
+ as,
+\begin_inset Formula 
+\[
+\rho_{e}\left(h\right)=\frac{\gamma_{e}\left(h\right)}{\gamma_{e}\left(0\right)}=\mathrm{Corr}\left(e_{t+h},e_{t}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+We plot this for different lags.
+ Also we plot the partial autocorrelations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+par(mfrow=c(2,1))
+\end_layout
+
+\begin_layout Plain Layout
+
+acf(residuals(lmodel1),lag.max = 20,main=
+\begin_inset Quotes erd
+\end_inset
+
+ACF Plot.
+\begin_inset Quotes erd
+\end_inset
+
+,col=
+\begin_inset Quotes erd
+\end_inset
+
+navyblue
+\begin_inset Quotes erd
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Plain Layout
+
+box(lwd=3,col=
+\begin_inset Quotes erd
+\end_inset
+
+grey
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+pacf(residuals(lmodel1),lag.max = 20,main=
+\begin_inset Quotes erd
+\end_inset
+
+PACF Plot.
+\begin_inset Quotes erd
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Plain Layout
+
+box(lwd=3,col=
+\begin_inset Quotes erd
+\end_inset
+
+grey
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The ACF and PACF plots behave abruptly, neither it would be an AR or MA
+ process.
+ However, we perform the Durbin-Watson test for presence of autocorrelation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+dw=durbinWatsonTest(lmodel1,max.lag = 1) 
+\end_layout
+
+\begin_layout Plain Layout
+
+dw 
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The 
+\begin_inset Formula $p-$
+\end_inset
+
+value for this test is 0.63.
+ At level 
+\begin_inset Formula $\alpha=0.05,$
+\end_inset
+
+ we have to accept the null hypothesis that 
+\begin_inset Formula $H_{0}:\rho=0.$
+\end_inset
+
+ Autocorrelation mayn't be present here.
+\end_layout
+
+\begin_layout Chapter
+Shrinkage Methods.
+\end_layout
+
+\begin_layout Section
+Ridge Regression.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The ridge estimator for 
+\begin_inset Formula $\boldsymbol{\beta}$
+\end_inset
+
+ will be as follows,
+\begin_inset Formula 
+\[
+\boldsymbol{\hat{\beta}_{\lambda}^{ridge}}=\left(X'X+\lambda I_{p}\right)^{-1}X'\boldsymbol{y}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Firstly, we see how does MSE behaves w.r.t.
+ 
+\begin_inset Formula $\lambda$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+X=dbts[-1] 
+\end_layout
+
+\begin_layout Plain Layout
+
+lambda=10^seq(2,-3,length=100) #--seq.
+ of auxiliary values--- 
+\end_layout
+
+\begin_layout Plain Layout
+
+#--Ridge Regression Model---
+\end_layout
+
+\begin_layout Plain Layout
+
+ridge.mod=glmnet(X,dbts$relwt,alpha=0,lambda = lambda) 
+\end_layout
+
+\begin_layout Plain Layout
+
+summary(ridge.mod) 
+\end_layout
+
+\begin_layout Plain Layout
+
+newx=as.matrix(X,nc=5) 
+\end_layout
+
+\begin_layout Plain Layout
+
+newx=apply(newx,2,as.numeric)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#---Calculating MSE for different values of lambda---
+\end_layout
+
+\begin_layout Plain Layout
+
+mse=NULL 
+\end_layout
+
+\begin_layout Plain Layout
+
+pred=predict(ridge.mod,s=lambda,newx = newx) 
+\end_layout
+
+\begin_layout Plain Layout
+
+mean((pred-dbts$relwt)**2) 
+\end_layout
+
+\begin_layout Plain Layout
+
+for(l in 1:length(lambda)) 
+\end_layout
+
+\begin_layout Plain Layout
+
+{    
+\end_layout
+
+\begin_layout Plain Layout
+
+	mse[l]=mean((pred[,l]-dbts$relwt)^2) 
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+ggplot(data.frame(x=lambda,y=mse),aes(x=x,y=y))+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_point()+labs(x=
+\begin_inset Quotes erd
+\end_inset
+
+Lambda
+\begin_inset Quotes erd
+\end_inset
+
+,y=
+\begin_inset Quotes erd
+\end_inset
+
+MSE
+\begin_inset Quotes erd
+\end_inset
+
+,title=
+\begin_inset Quotes erd
+\end_inset
+
+Change in MSE w.r.t.
+ Lambda
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+From the curve we see that the MSE more or less increases as 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ does.
+ To find the optimum value of 
+\begin_inset Formula $\lambda$
+\end_inset
+
+, we apply Cross Validation,
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+ridge.cv=cv.glmnet(newx,dbts$relwt,alpha=0) 
+\end_layout
+
+\begin_layout Plain Layout
+
+#---Optimum value of Lambda---
+\end_layout
+
+\begin_layout Plain Layout
+
+cv.lam=ridge.cv$lambda.min 
+\end_layout
+
+\begin_layout Plain Layout
+
+#---Performing Ridge with that optimum value--
+\end_layout
+
+\begin_layout Plain Layout
+
+ridge.min=glmnet(X,dbts$relwt,alpha=0,lambda=cv.lam) 
+\end_layout
+
+\begin_layout Plain Layout
+
+ridge.min
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Via Cross Validation, the optimum value of 
+\begin_inset Formula $\lambda$
+\end_inset
+
+, say 
+\begin_inset Formula $\lambda_{opt}$
+\end_inset
+
+ is about 
+\begin_inset Formula $0.005.$
+\end_inset
+
+ Now, we plot 
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+ vs.
+ 
+\begin_inset Formula $X\boldsymbol{\hat{\beta}_{\lambda_{opt}}^{ridge}}$
+\end_inset
+
+ to see how close they are.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+pred.cv=predict(ridge.min,s=cv.lam,newx=newx)
+\end_layout
+
+\begin_layout Plain Layout
+
+cv=ggplot()+geom_point(aes(x=dbts$relwt,y=pred.cv),
+\end_layout
+
+\begin_layout Plain Layout
+
+col=
+\begin_inset Quotes erd
+\end_inset
+
+navyblue
+\begin_inset Quotes erd
+\end_inset
+
+,alpha=0.8)+geom_abline(slope = 1,intercept = 0)+
+\end_layout
+
+\begin_layout Plain Layout
+
+labs(x=
+\begin_inset Quotes erd
+\end_inset
+
+Response
+\begin_inset Quotes erd
+\end_inset
+
+,y=
+\begin_inset Quotes erd
+\end_inset
+
+Fitted values
+\begin_inset Quotes erd
+\end_inset
+
+,title=
+\begin_inset Quotes erd
+\end_inset
+
+Scatterplot of Response
+\end_layout
+
+\begin_layout Plain Layout
+
+vs.
+ Ridge Fitted Values.
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+cv
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+So, squared correlation between responses and fitted values for Ridge Regression
+ will be,
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+ridge=cor(pred.cv,dbts$relwt)
+\end_layout
+
+\begin_layout Plain Layout
+
+ridge^2
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Very close to 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ of the full model.
+\end_layout
+
+\begin_layout Section
+LASSO.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The LASSO estimates are defined as,
+\begin_inset Formula 
+\[
+\boldsymbol{\hat{\beta}^{lasso}}=\arg\underset{\boldsymbol{\beta}\in\mathbb{R}^{p}}{\min}\left\{ \sum_{i=1}^{n}\left(y_{i}-\sum_{j=1}^{p}x_{ij}\beta_{j}\right)^{2}+\lambda\sum_{j=1}^{p}\left|\beta_{j}\right|\right\} =\arg\underset{\boldsymbol{\beta}\in\mathbb{R}^{p}}{\min}\left\{ \underset{\mathrm{Loss}}{\underbrace{\left\Vert \boldsymbol{y}-X\boldsymbol{\beta}\right\Vert _{2}^{2}}}+\lambda\underset{\mathrm{Penalty}}{\underbrace{\left\Vert \boldsymbol{\beta}\right\Vert _{1}}}\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Firstly, we see how does MSE behaves w.r.t.
+ 
+\begin_inset Formula $\lambda$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+X=dbts[-1] 
+\end_layout
+
+\begin_layout Plain Layout
+
+lambda=10^seq(2,-3,length=100) #--seq.
+ of auxiliary values--- 
+\end_layout
+
+\begin_layout Plain Layout
+
+#-- LASSO Model---
+\end_layout
+
+\begin_layout Plain Layout
+
+lasso.mod=glmnet(X,dbts$relwt,alpha=1,lambda = lambda) 
+\end_layout
+
+\begin_layout Plain Layout
+
+summary(lasso.mod) 
+\end_layout
+
+\begin_layout Plain Layout
+
+newx=as.matrix(X,nc=5) 
+\end_layout
+
+\begin_layout Plain Layout
+
+newx=apply(newx,2,as.numeric)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#---Calculating MSE for different values of lambda---
+\end_layout
+
+\begin_layout Plain Layout
+
+mse=NULL 
+\end_layout
+
+\begin_layout Plain Layout
+
+pred=predict(lasso.mod,s=lambda,newx = newx) 
+\end_layout
+
+\begin_layout Plain Layout
+
+mean((pred-dbts$relwt)**2) 
+\end_layout
+
+\begin_layout Plain Layout
+
+for(l in 1:length(lambda)) 
+\end_layout
+
+\begin_layout Plain Layout
+
+{    
+\end_layout
+
+\begin_layout Plain Layout
+
+	mse[l]=mean((pred[,l]-dbts$relwt)^2) 
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+ggplot(data.frame(x=lambda,y=mse),aes(x=x,y=y))+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_point()+labs(x=
+\begin_inset Quotes erd
+\end_inset
+
+Lambda
+\begin_inset Quotes erd
+\end_inset
+
+,y=
+\begin_inset Quotes erd
+\end_inset
+
+MSE
+\begin_inset Quotes erd
+\end_inset
+
+,title=
+\begin_inset Quotes erd
+\end_inset
+
+Change in MSE w.r.t.
+ Lambda
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+From the curve we see that the MSE more or less increases as 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ does.
+ To find the optimum value of 
+\begin_inset Formula $\lambda$
+\end_inset
+
+, we apply Cross Validation,
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+lasso.cv=cv.glmnet(newx,dbts$relwt,alpha=1) 
+\end_layout
+
+\begin_layout Plain Layout
+
+#---Optimum value of Lambda---
+\end_layout
+
+\begin_layout Plain Layout
+
+cv.lam=lasso.cv$lambda.min 
+\end_layout
+
+\begin_layout Plain Layout
+
+#---Performing LASSO with that optimum value--
+\end_layout
+
+\begin_layout Plain Layout
+
+lasso.min=glmnet(X,dbts$relwt,alpha=1,lambda=cv.lam) 
+\end_layout
+
+\begin_layout Plain Layout
+
+lasso.min
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Via Cross Validation, the optimum value of 
+\begin_inset Formula $\lambda$
+\end_inset
+
+, say 
+\begin_inset Formula $\lambda_{opt}$
+\end_inset
+
+ is about 
+\begin_inset Formula $0.0011.$
+\end_inset
+
+ Now, we plot 
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+ vs.
+ 
+\begin_inset Formula $X\boldsymbol{\hat{\beta}_{\lambda_{opt}}^{lasso}}$
+\end_inset
+
+ to see how close they are.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+pred.cv=predict(lasso.min,s=cv.lam,newx=newx)
+\end_layout
+
+\begin_layout Plain Layout
+
+cv=ggplot()+geom_point(aes(x=dbts$relwt,y=pred.cv),
+\end_layout
+
+\begin_layout Plain Layout
+
+col=
+\begin_inset Quotes erd
+\end_inset
+
+navyblue
+\begin_inset Quotes erd
+\end_inset
+
+,alpha=0.8)+geom_abline(slope = 1,intercept = 0)+
+\end_layout
+
+\begin_layout Plain Layout
+
+labs(x=
+\begin_inset Quotes erd
+\end_inset
+
+Response
+\begin_inset Quotes erd
+\end_inset
+
+,y=
+\begin_inset Quotes erd
+\end_inset
+
+Fitted values
+\begin_inset Quotes erd
+\end_inset
+
+,title=
+\begin_inset Quotes erd
+\end_inset
+
+Scatterplot of Response
+\end_layout
+
+\begin_layout Plain Layout
+
+vs.
+ LASSO Fitted Values.
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+cv
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+So, squared correlation between responses and fitted values for LASSO Regression
+ will be,
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+lasso=cor(pred.cv,dbts$relwt)
+\end_layout
+
+\begin_layout Plain Layout
+
+lasso^2
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Presence of Multicollinearity.
+\end_layout
+
+\begin_layout Section
+Detecting dependency among Covariates.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Variance covariance matrix of quantitative covariates.
+ Also, the correlation matrix and eigenvalues of 
+\begin_inset Formula $\left(X'X\right)$
+\end_inset
+
+ is as follows.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+#--mat of quantitative covariates---
+\end_layout
+
+\begin_layout Plain Layout
+
+dbts.qcov=dbts[,-c(1,ncol(dbts))] 
+\end_layout
+
+\begin_layout Plain Layout
+
+cor(dbts.qcov) 
+\end_layout
+
+\begin_layout Plain Layout
+
+eigen(crossprod(as.matrix(dbts.qcov)))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+VIF.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The formula for calculating VIF for 
+\begin_inset Formula $j^{th}$
+\end_inset
+
+ covariate is as follows,
+\begin_inset Formula 
+\[
+VIF_{j}=\frac{1}{1-R_{j}^{2}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+\begin_inset Formula $R_{j}^{2}$
+\end_inset
+
+ is the Multiple R squared when 
+\begin_inset Formula $j^{th}$
+\end_inset
+
+covariate is regressed on other covariates in case of scaled and centered
+ model.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+vif(lmodel1)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+It indicates that there is a linear relationship between glutest and glufast
+ which supports our previous diagnostics.
+ Later we'll deal with collinearity.
+\end_layout
+
+\begin_layout Chapter
+Transforming the Covariates.
+\end_layout
+
+\begin_layout Section
+Box-Cox Transformation.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+We perform the Box-Cox transformation on response and storing the model
+ into the object '
+\series bold
+model.bc
+\series default
+'.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+bc=boxcox(lmodel1) 
+\end_layout
+
+\begin_layout Plain Layout
+
+#--Optimum value of lambda for which loglikelihood is maximum.--
+\end_layout
+
+\begin_layout Plain Layout
+
+lambda.bc=bc$x[which.max(bc$y)] 
+\end_layout
+
+\begin_layout Plain Layout
+
+res.bc=(dbts$relwt**lambda.bc-1)/lambda.bc 
+\end_layout
+
+\begin_layout Plain Layout
+
+#--BoxCox transformed model---
+\end_layout
+
+\begin_layout Plain Layout
+
+model.bc=lm(res.bc~.,data=dbts[-1])
+\end_layout
+
+\begin_layout Plain Layout
+
+summary(model.bc) 
+\end_layout
+
+\begin_layout Plain Layout
+
+pred.bc=(predict(model.bc)*lambda.bc+1)**(1/lambda.bc)
+\end_layout
+
+\begin_layout Plain Layout
+
+ggbc=ggplot()+geom_point(aes(pred.bc,dbts$relwt))+geom_abline(intercept=0,slope=1
+)+
+\end_layout
+
+\begin_layout Plain Layout
+
+labs(title=
+\begin_inset Quotes erd
+\end_inset
+
+Scatterplot of Box-Cox Fitted values vs.
+ responses
+\begin_inset Quotes erd
+\end_inset
+
+,x=
+\begin_inset Quotes erd
+\end_inset
+
+Responses
+\begin_inset Quotes erd
+\end_inset
+
+,y=
+\begin_inset Quotes erd
+\end_inset
+
+Fitted values
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+ggbc
+\end_layout
+
+\begin_layout Plain Layout
+
+bc.cor=cor(pred.bc,dbts$relwt)^2 
+\end_layout
+
+\begin_layout Plain Layout
+
+bc.cor
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+This performed well w.r.t the full model.
+\end_layout
+
+\begin_layout Section
+Principal Component Regression (PCR).
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The Principal Components Regression approach involves constructing the first
+ 
+\begin_inset Formula $M$
+\end_inset
+
+ principal components, 
+\begin_inset Formula $Z_{1},Z_{2},\ldots,Z_{M}$
+\end_inset
+
+ and then using these components as the predictors in a linear regression
+ model that is fit using least squares.
+ We fit a PCR model storing into the object 
+\series bold
+'model.pc' 
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+model.pc=pcr(relwt~.,data=dbts,validation="CV",scale=T,centre=T)
+\end_layout
+
+\begin_layout Plain Layout
+
+summary(model.pc)
+\end_layout
+
+\begin_layout Plain Layout
+
+validationplot(model.pc,main=
+\begin_inset Quotes erd
+\end_inset
+
+Plotting RMSE w.r.t no.
+ of components.
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+box(lwd=3,col=
+\begin_inset Quotes erd
+\end_inset
+
+grey
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Here the RMSE's for different components are obtained by 10-fold Cross Validatio
+n.
+ From above plot we see that the RMSE is least when 
+\begin_inset Formula $M=6,$
+\end_inset
+
+ which is barely fewer than 
+\begin_inset Formula $M=7,$
+\end_inset
+
+ which amounts to performing least squares., because when all of the components
+ are used in PCR no diemnsion reduction occurs.
+ However from the plot we also see that the cv error is roughly same only
+ one component is included in the model.
+ This suggests that a model that uses just a small number of components
+ might suffice.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Also from the above output, only 4 principal components captures about 97.11%
+ of the variation.
+ Hence we might attempt to do the same analysis using 4 components.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+#---Another PCR Model with 4 components---
+\end_layout
+
+\begin_layout Plain Layout
+
+model.pc2=pcr(relwt~.,data=dbts,validation="CV",scale=T,centre=T,ncomp=4)
+\end_layout
+
+\begin_layout Plain Layout
+
+summary(model.pc2)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Now, we plot the fitted values against the response and check squared correlatio
+n among them.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+pred.pc=predict(model.pc2,ncomp=4)
+\end_layout
+
+\begin_layout Plain Layout
+
+ggpcr=ggplot()+geom_point(col=
+\begin_inset Quotes erd
+\end_inset
+
+purple
+\begin_inset Quotes erd
+\end_inset
+
+,aes(x=dbts$relwt,y=pred.pc))+
+\end_layout
+
+\begin_layout Plain Layout
+
+geom_abline(intercept=0,slope=1)+labs(y=
+\begin_inset Quotes erd
+\end_inset
+
+Fitted Values
+\begin_inset Quotes erd
+\end_inset
+
+,x=
+\begin_inset Quotes erd
+\end_inset
+
+Response
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+,title=
+\begin_inset Quotes erd
+\end_inset
+
+Plotting the fitted PCR values against responses
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+ggpcr
+\end_layout
+
+\begin_layout Plain Layout
+
+#--Estimated MSE---
+\end_layout
+
+\begin_layout Plain Layout
+
+mean((pred.pc-dbts$relwt)**2) 
+\end_layout
+
+\begin_layout Plain Layout
+
+pcrcor=cor(pred.pc,dbts$relwt)^2 
+\end_layout
+
+\begin_layout Plain Layout
+
+pcrcor
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The squared correlation between Fitted values and responses here is very
+ close to as we got Multiple 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ from the full model.
+\end_layout
+
+\begin_layout Chapter
+Model Selection.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+We apply various procedures like Forward, Backward and Stepwise selection
+ to select which variables to include in order to get a good model, and
+ how to use the available variables to construct a good predictor.
+ 
+\end_layout
+
+\begin_layout Section
+Forward Selection.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+stepAIC(lm(relwt~.,data=old.dbts),direction='forward')
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Backward Selection.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+stepAIC(lm(relwt~.,data=dbts),direction='backward')
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Stepwise Selection.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+stepAIC(lm(relwt~.,data=dbts),direction='both')
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+In all the three methods, full model is selected.
+ But earlier we found the covariates are highly collinear.
+ Hence, we compare between different models as follows.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Next we consider all possible combination of covariates for constructing
+ the model.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## models
+\end_layout
+
+\begin_layout Plain Layout
+
+fm<-list()
+\end_layout
+
+\begin_layout Plain Layout
+
+fm[['gf+gt+ss+in+gr']]<-lm(relwt~.,data=dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fm[['gt+ss+in+gr']]<-lm(relwt~.-glufast,data=dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+fm[['gf+ss+in+gr']]<-lm(relwt~.-glutest,data=dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+fm[['gf+gt+in+gr']]<-lm(relwt~.-sspg,data=dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+fm[['gf+gt+ss+gr']]<-lm(relwt~.-instest,data=dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+fm[['gf+gt+ss+in']]<-lm(relwt~.-group,data=dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fm[['ss+in+gr']]<-lm(relwt~sspg+instest+group,data=dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+fm[['gt+in+gr']]<-lm(relwt~glutest+instest+group,data=dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+fm[['gt+ss+in']]<-lm(relwt~glutest+sspg+instest,data=dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+fm[['gt+in2+gr']]<-lm(relwt~glutest+poly(instest,2,raw=T)+group,data=dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fm[['gt+in']]<-lm(relwt~glutest+instest,data=dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+models<-factor(names(fm),levels=names(fm))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ and Adjusted 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<fig.height=10,fig.width=16,comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## R2 and adjusted R2
+\end_layout
+
+\begin_layout Plain Layout
+
+R2<-sapply(fm,function(model)summary(model)$r.squared) 
+\end_layout
+
+\begin_layout Plain Layout
+
+adj.R2<-sapply(fm,function(model)summary(model)$adj.r.squared)
+\end_layout
+
+\begin_layout Plain Layout
+
+dotplot(R2+adj.R2~models,type='o',pch=16,main=
+\begin_inset Quotes erd
+\end_inset
+
+Adjusted R^2 and R^2 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+n for different models.
+\begin_inset Quotes erd
+\end_inset
+
+,auto.key=list(space="right"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+From this plot we select the model 
+\begin_inset Quotes eld
+\end_inset
+
+relwt ~ glutest + instest + group
+\begin_inset Quotes erd
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Section
+Mallow's 
+\begin_inset Formula $C_{p}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<fig.height=10,fig.width=16,comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## Mallows Cp
+\end_layout
+
+\begin_layout Plain Layout
+
+sigma.sq<-summary(fm[['gf+gt+ss+in+gr']])$sigma**2 #for the big model
+\end_layout
+
+\begin_layout Plain Layout
+
+Cp <- sapply(fm, function(fit) extractAIC(fit, scale = sigma.sq)[2])
+\end_layout
+
+\begin_layout Plain Layout
+
+dotplot(Cp~models,type='o',pch=16,main=
+\begin_inset Quotes erd
+\end_inset
+
+Cp for different Models
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+From this plot we select the model “relwt ~ glutest + instest + sspg+group”
+ .
+\end_layout
+
+\begin_layout Section
+AIC.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<fig.height=10,fig.width=16,comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+##AIC
+\end_layout
+
+\begin_layout Plain Layout
+
+AIC <- sapply(fm, function(fit) AIC(fit))
+\end_layout
+
+\begin_layout Plain Layout
+
+dotplot(AIC ~ models, type = "o", pch = 16,xlab="Models",main=
+\begin_inset Quotes erd
+\end_inset
+
+AIC for different Models
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+From this plot we select the model “relwt ~ glutest + instest +sspg+ group”
+ .
+\end_layout
+
+\begin_layout Section
+BIC.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<fig.height=10,fig.width=16,comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## BIC
+\end_layout
+
+\begin_layout Plain Layout
+
+BIC <- sapply(fm, function(fit) extractAIC(fit, k = log(n))[2]) 
+\end_layout
+
+\begin_layout Plain Layout
+
+dotplot(BIC ~ models, type = "o", pch = 16,main=
+\begin_inset Quotes erd
+\end_inset
+
+BIC for different Models
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Some Additional Plot.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+##----additional plots
+\end_layout
+
+\begin_layout Plain Layout
+
+reg.sub<-regsubsets(relwt~.,data=dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+reg.sum<-summary(reg.sub)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+par(mfrow=c(2,2))
+\end_layout
+
+\begin_layout Plain Layout
+
+# rss
+\end_layout
+
+\begin_layout Plain Layout
+
+plot(reg.sum$rss,type='b',ylab='RSS',xlab='Number of Variables',
+\end_layout
+
+\begin_layout Plain Layout
+
+main=
+\begin_inset Quotes erd
+\end_inset
+
+RSS for different Models
+\begin_inset Quotes erd
+\end_inset
+
+);box(lwd=2)
+\end_layout
+
+\begin_layout Plain Layout
+
+# adj R2
+\end_layout
+
+\begin_layout Plain Layout
+
+plot(reg.sum$adjr2,type='b',ylab='Adjusted Rsq',xlab='Number of Variables',
+\end_layout
+
+\begin_layout Plain Layout
+
+main=
+\begin_inset Quotes erd
+\end_inset
+
+Adj.
+ R2 for different Models
+\begin_inset Quotes erd
+\end_inset
+
+);box(lwd=2)
+\end_layout
+
+\begin_layout Plain Layout
+
+max<-which.max(reg.sum$adjr2)
+\end_layout
+
+\begin_layout Plain Layout
+
+points(max,reg.sum$adjr2[max],col='red',cex=2,pch=16)
+\end_layout
+
+\begin_layout Plain Layout
+
+# Cp
+\end_layout
+
+\begin_layout Plain Layout
+
+plot(reg.sum$cp,type='b',ylab='Cp',xlab='Number of Variables',
+\end_layout
+
+\begin_layout Plain Layout
+
+main=
+\begin_inset Quotes erd
+\end_inset
+
+Cp for different Models
+\begin_inset Quotes erd
+\end_inset
+
+);box(lwd=2)
+\end_layout
+
+\begin_layout Plain Layout
+
+min<-which.min(reg.sum$cp)
+\end_layout
+
+\begin_layout Plain Layout
+
+points(min,reg.sum$cp[min],col='red',cex=2,pch=16)
+\end_layout
+
+\begin_layout Plain Layout
+
+# bic
+\end_layout
+
+\begin_layout Plain Layout
+
+plot(reg.sum$bic,type='b',ylab='BIC',xlab='Number of Variables',
+\end_layout
+
+\begin_layout Plain Layout
+
+main=
+\begin_inset Quotes erd
+\end_inset
+
+BIC for different Models
+\begin_inset Quotes erd
+\end_inset
+
+);box(lwd=2)
+\end_layout
+
+\begin_layout Plain Layout
+
+min<-which.min(reg.sum$bic)
+\end_layout
+
+\begin_layout Plain Layout
+
+points(min,reg.sum$bic[min],col='red',cex=2,pch=16)
+\end_layout
+
+\begin_layout Plain Layout
+
+par(mfrow=c(1,1))
+\end_layout
+
+\begin_layout Plain Layout
+
+plot(reg.sub,scale='bic',main=
+\begin_inset Quotes erd
+\end_inset
+
+Heatplot for diffferent models.
+\begin_inset Quotes erd
+\end_inset
+
+);box(lwd=3,col=
+\begin_inset Quotes erd
+\end_inset
+
+grey
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+These plots gives us some interesting features,
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+As the # covariates increases RSS always decreases and adjusted 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ always increases.
+ So, these criterions will always give full model as the best though we
+ have seen there are highly collinear covariates.
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+Mallow's 
+\begin_inset Formula $C_{p}$
+\end_inset
+
+ or 
+\begin_inset Formula $BIC$
+\end_inset
+
+ gives model with 3 covariates will be better.
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+Also, plots of 
+\begin_inset Formula $R^{2},$
+\end_inset
+
+ adjusted 
+\begin_inset Formula $R^{2}\:AIC,BIC$
+\end_inset
+
+ gives the model with glutest, instest, group will be better for us.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+In the Heatplot, the top row of each plot contains a black square for each
+ variable selected according to the optimal model associated with the statistic.
+ It left 'glutest', 'instest' and 'group' in the model.
+\end_layout
+
+\begin_layout Section
+Final Model.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Hence in our final model, we'll take glutest, instest , sspg and group only.
+ Let's see how the final model, 
+\series bold
+'fmodel'
+\series default
+ works,
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+#final model
+\end_layout
+
+\begin_layout Plain Layout
+
+fmodel<-lm(relwt~glutest+instest+group+sspg,data=dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+summary(fmodel)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+Multiple R Squared is slightly better than the full model.
+ In spite of that, this model would be better as it's free from collinearity.
+ Now let's see whether our assumptions are valid or not.
+\end_layout
+
+\begin_layout Itemize
+
+\size large
+SE of some estimates dropped significantly.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+EDA for the final model.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+##Exploratory data analysis of final model
+\end_layout
+
+\begin_layout Plain Layout
+
+#fitted model vs response
+\end_layout
+
+\begin_layout Plain Layout
+
+plot(dbts$relwt,fmodel$fitted.values,xlim=c(0.6,1.4),ylim=c(0.6,1.4),
+\end_layout
+
+\begin_layout Plain Layout
+
+     main='Fitted Value Vs Response',xlab='relwt',ylab='fitted value',
+\end_layout
+
+\begin_layout Plain Layout
+
+     pch=20
+\end_layout
+
+\begin_layout Plain Layout
+
+     );box(lwd=3)
+\end_layout
+
+\begin_layout Plain Layout
+
+abline(a=0,b=1,col='red',lwd=1.5)
+\end_layout
+
+\begin_layout Plain Layout
+
+grid(col=
+\begin_inset Quotes erd
+\end_inset
+
+darkgreen
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+#--Diagonstics---
+\end_layout
+
+\begin_layout Plain Layout
+
+ggobj=ggplot(data=dbts,mapping=aes(x=fitted(fmodel)
+\end_layout
+
+\begin_layout Plain Layout
+
+,y=residuals(fmodel)))
+\end_layout
+
+\begin_layout Plain Layout
+
+ggobj+geom_point()+geom_hline(yintercept=0,
+\end_layout
+
+\begin_layout Plain Layout
+
+linetype="dashed",col="red")+ylim(1,-1)+
+\end_layout
+
+\begin_layout Plain Layout
+
+  xlab("Fitted")+ylab("Residuals")+
+\end_layout
+
+\begin_layout Plain Layout
+
+labs(title="Fitted Values vs.
+ Residuals")
+\end_layout
+
+\begin_layout Plain Layout
+
+#---Checking for Normality---
+\end_layout
+
+\begin_layout Plain Layout
+
+df=data.frame(y=residuals(fmodel))
+\end_layout
+
+\begin_layout Plain Layout
+
+ggplot(df,aes(sample=y))+stat_qq(shape=5)+
+\end_layout
+
+\begin_layout Plain Layout
+
+stat_qq_line(lwd=1,col="navyblue")+labs(y="Theoretical Quantiles",x="Sample
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+Quantiles",title="QQPlot for the Residuals")
+\end_layout
+
+\begin_layout Plain Layout
+
+#---Normality Accepted---
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Partial and Added Variable Plot for the Final Model.
+\end_layout
+
+\begin_layout Subsection
+Partial Residual Plot.
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+Partial residual plots are useful to verify one fo the key assumptions of
+ multiple linear regression that there is a linear relationship b/w each
+ predictor and response variable.
+ If this assumptions is violated then the results of the regression model
+ can be unreliable.
+ One way to check this assumption is to create a partial residual plot,
+ which displays 
+\begin_inset Formula $e_{i}^{*}=e_{i}+\hat{\beta}_{j}x_{ij}$
+\end_inset
+
+ against 
+\begin_inset Formula $x_{ij}'$
+\end_inset
+
+s.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+crPlots(fmodel)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+The blue line shows the expected residuals if the relationship b/w the predictor
+ and response variable are linear.
+ The pink line shows the actual residuals.
+ If the two lines are significantly different, then this is evidence of
+ a nonlinear relationship.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+In our plots the graphs two lines in glutest and instest are very much close,
+ but sspg mayn't be linearly related to 
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+.
+ So, our multiple linear assumption is quite useful.
+\end_layout
+
+\begin_layout Subsection
+Added Variable Plot.
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Added Variable Plots gives a better indication of the contribution that
+ each explanatory variable makes to the fit.
+ Here we plot the '
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ residuals' and 
+\begin_inset Formula $j^{th}$
+\end_inset
+
+ covariate deleted residuals for each covariate we have.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+avPlots(fmodel)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Each of the variables selected contributes significantly.
+\end_layout
+
+\begin_layout Chapter
+Robust Regression
+\end_layout
+
+\begin_layout Section
+M-estimation
+\end_layout
+
+\begin_layout Standard
+We will now approach the modeling with a different approach without deleting
+ the outlying observations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+m=rlm(relwt~.,data=old.dbts)
+\end_layout
+
+\begin_layout Plain Layout
+
+summary(m)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<comment=NA>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+cor(predict(m),old.dbts$relwt)**2
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The squared correlation between Fitted values and responses here is very
+ close to as we got Multiple 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ from the full model.
+\end_layout
+
+\end_body
+\end_document
